@@ -78,16 +78,16 @@ class RaiParser:
         feed.update = _datetime_parser(rdata["block"]["update_date"])
         if not feed.update:
             feed.update = _datetime_parser(rdata["track_info"]["date"])
-        for item in rdata["block"]["cards"]:
+        if self.date_filter:
+            print(f"filtering episodes before {self.treshold_date} for {rdata["title"]}")
+            cards_list = filter( lambda x: dt.strptime( x["create_date"], "%d-%m-%Y" ) > self.treshold_date, rdata["block"]["cards"] ) 
+        else:
+            cards_list = filter( lambda x: True, rdata["block"]["cards"] )
+        for item in cards_list:
             if "/playlist/" in item.get("weblink", ""):
                 self.extend(item["weblink"])
             if not item.get("audio", None):
                 continue
-            if self.date_filter and ( "create_date" in item ):
-                episode_date = dt.strptime( item["create_date"], "%d-%m-%Y" )
-                if episode_date < self.treshold_date:
-                    print(f"Skipping episode date {episode_date}")
-                    continue
             fitem = FeedItem()
             fitem.title = item["toptitle"]
             fitem.id = "timendum-raiplaysound-" + item["uniquename"]
