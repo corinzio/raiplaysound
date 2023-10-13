@@ -34,10 +34,13 @@ def _datetime_parser(s: str) -> Optional[dt]:
 
 
 class RaiParser:
-    def __init__(self, url: str, folderPath: str) -> None:
+    def __init__(self, url: str, folderPath: str, days_window_programmi: float = 91 ) -> None:
         self.url = url
         self.folderPath = folderPath
         self.inner: List[Feed] = []
+        self.treshold_date = dt.now() 
+        self.treshold_date = self.treshold_date - timedelta( days = days_window_programmi )
+        self.date_filter = False
 
     def extend(self, url: str) -> None:
         url = urljoin(self.url, url)
@@ -80,6 +83,11 @@ class RaiParser:
                 self.extend(item["weblink"])
             if not item.get("audio", None):
                 continue
+            if self.date_filter and ( "create_date" in item ):
+                episode_date = dt.strptime( item["create_date"], "%d-%m-%Y" )
+                if episode_date < self.treshold_date:
+                    print(f"Skipping episode date {episode_date}")
+                    continue
             fitem = FeedItem()
             fitem.title = item["toptitle"]
             fitem.id = "timendum-raiplaysound-" + item["uniquename"]
@@ -120,6 +128,11 @@ class RaiParser:
         if skip_programmi and (typology in ("programmi radio", "informazione notiziari")):
             print(f"Skipped programmi: {self.url} ({typology})")
             return []
+        if not skip_programmi and (typology in ("programmi radio", "informazione notiziari")):
+            #set filter date
+            self.date_filter = True
+        else:
+            self.date_filter = False
         if skip_film and (typology in ("film", "fiction")):
             print(f"Skipped film: {self.url} ({typology})")
             return []

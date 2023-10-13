@@ -44,16 +44,16 @@ class RaiPlaySound:
             self.parse_genere(genere)
 
     def parse_list(self) -> None:
-        list = [
-            "https://www.raiplaysound.it/programmi/primapagina",
-            "https://www.raiplaysound.it/audiolibri/ilmaestroemargherita",
-        ]
+    
+        list = [ "https://www.raiplaysound.it/programmi/primapagina",
+                 "https://www.raiplaysound.it/audiolibri/ilmaestroemargherita",                
+                 "https://www.raiplaysound.it/programmi/radio3mondo" ]
         for el in list:
             parser = RaiParser(el, self._base_path)
             try:
                 parser.process(skip_programmi=False, date_ok=True)
             except Exception as e:
-                print(f"Error with {url}: {e}")
+                print(f"Error with {el}: {e}")
 
 def main():
     dumper = RaiPlaySound()
