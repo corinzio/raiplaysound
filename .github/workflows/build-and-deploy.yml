@@ -26,7 +26,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Build app
       run: |
-        python all.p
+        python all.py
     - name: Fix permissions
       run: |
         chmod -c -R +rX "dist/" | while read line; do
