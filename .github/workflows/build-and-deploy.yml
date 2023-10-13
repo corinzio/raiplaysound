@@ -26,4 +26,13 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Build app
       run: |
-        python all.py
+        python all.p
+    - name: Fix permissions
+      run: |
+        chmod -c -R +rX "dist/" | while read line; do
+          echo "::warning title=Invalid file permissions automatically fixed::$line"
+        done
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: "./dist"
