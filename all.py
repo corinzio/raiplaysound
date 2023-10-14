@@ -53,7 +53,9 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/belve",
                  "https://www.raiplaysound.it/programmi/voxinbestia",
                  "https://www.raiplaysound.it/programmi/winelovers",
-                 "https://www.raiplaysound.it/programmi/leggendetrentine" 
+                 "https://www.raiplaysound.it/programmi/leggendetrentine",
+                 "https://www.raiplaysound.it/programmi/vajont1963londa",
+                 "https://www.raiplaysound.it/playlist/pontidinote" 
         ]
         for el in list:
             parser = RaiParser(el, self._base_path)
