@@ -44,14 +44,21 @@ class RaiPlaySound:
             self.parse_genere(genere)
 
     def parse_list(self) -> None:
-    
-        list = [ "https://www.raiplaysound.it/programmi/primapagina",
+
+        list = [ 
+                 "https://www.raiplaysound.it/programmi/primapagina",
                  "https://www.raiplaysound.it/audiolibri/ilmaestroemargherita",                
-                 "https://www.raiplaysound.it/programmi/radio3mondo" ]
+                 "https://www.raiplaysound.it/programmi/radio3mondo",
+                 "https://www.raiplaysound.it/programmi/16ottobre1943",                
+                 "https://www.raiplaysound.it/programmi/belve",
+                 "https://www.raiplaysound.it/programmi/voxinbestia",
+                 "https://www.raiplaysound.it/programmi/winelovers",
+                 "https://www.raiplaysound.it/programmi/leggendetrentine" 
+        ]
         for el in list:
             parser = RaiParser(el, self._base_path)
             try:
-                parser.process(skip_programmi=False, date_ok=True)
+                parser.process(skip_programmi=False, date_ok=False)
             except Exception as e:
                 print(f"Error with {el}: {e}")
 

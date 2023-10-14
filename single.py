@@ -4,6 +4,7 @@ from itertools import chain
 from os.path import join as pathjoin
 from typing import List, Optional
 from urllib.parse import urljoin
+import re 
 
 import requests
 from feedendum import to_rss_string, Feed, FeedItem
@@ -34,13 +35,24 @@ def _datetime_parser(s: str) -> Optional[dt]:
 
 
 class RaiParser:
-    def __init__(self, url: str, folderPath: str, days_window_programmi: float = 91 ) -> None:
+    def __init__(self, url: str, folderPath: str, days_window_programmi: float = 90 ) -> None:
         self.url = url
         self.folderPath = folderPath
         self.inner: List[Feed] = []
         self.treshold_date = dt.now() 
         self.treshold_date = self.treshold_date - timedelta( days = days_window_programmi )
         self.date_filter = False
+        self.size_limit = days_window_programmi
+
+    def get_season(self, url):
+        result = requests.get(urljoin(self.url, url))
+        try:
+            result.raise_for_status()
+        except requests.HTTPError as e:
+            print(f"Error with {self.url}: {e}")
+            return self.inner
+        season_data = result.json()
+        return season_data["cards"]            
 
     def extend(self, url: str) -> None:
         url = urljoin(self.url, url)
@@ -48,7 +60,7 @@ class RaiParser:
             return
         if url in (f.url for f in self.inner):
             return
-        parser = RaiParser(url, self.folderPath)
+        parser = RaiParser( url, self.folderPath)
         self.inner.extend(parser.process())
 
     def _json_to_feed(self, feed: Feed, rdata) -> None:
@@ -78,7 +90,7 @@ class RaiParser:
         feed.update = _datetime_parser(rdata["block"]["update_date"])
         if not feed.update:
             feed.update = _datetime_parser(rdata["track_info"]["date"])
-        if self.date_filter:
+        if self.date_filter and ( len(rdata["block"]["cards"]) > self.size_limit ):
             print(f"filtering episodes before {self.treshold_date} for {rdata["title"]}")
             cards_list = filter( lambda x: dt.strptime( x["create_date"], "%d-%m-%Y" ) > self.treshold_date, rdata["block"]["cards"] ) 
         else:
@@ -139,6 +151,15 @@ class RaiParser:
         for tab in rdata["tab_menu"]:
             if tab["content_type"] == "playlist":
                 self.extend(tab["weblink"])
+
+        if "filters" in rdata:
+            total_cards = []
+            for filt in rdata["filters"]:
+                if filt["path_id"] != None:
+                     total_cards = total_cards + self.get_season(filt["path_id"])
+            if len(total_cards) > 0:
+                rdata["block"]["cards"] = total_cards
+
         feed = Feed()
         self._json_to_feed(feed, rdata)
         if not feed.items and not self.inner:
@@ -186,6 +207,7 @@ class RaiParser:
                 wo.write(to_rss_string(feed))
             print(f"Written {pathjoin(self.folderPath, filename)}")
         return [feed] + self.inner
+
 
 
 def main():
