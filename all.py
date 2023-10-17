@@ -46,6 +46,9 @@ class RaiPlaySound:
     def parse_list(self) -> None:
 
         list = [ 
+                 "https://www.raiplaysound.it/playlist/ifilosofieilvino",
+                 "https://www.raiplaysound.it/programmi/zarathustra",
+                 "https://www.raiplaysound.it/playlist/socrate",
                  "https://www.raiplaysound.it/programmi/primapagina",
                  "https://www.raiplaysound.it/audiolibri/ilmaestroemargherita",                
                  "https://www.raiplaysound.it/programmi/radio3mondo",
@@ -55,7 +58,8 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/winelovers",
                  "https://www.raiplaysound.it/programmi/leggendetrentine",
                  "https://www.raiplaysound.it/programmi/vajont1963londa",
-                 "https://www.raiplaysound.it/playlist/pontidinote" 
+                 "https://www.raiplaysound.it/playlist/pontidinote",
+                 "https://www.raiplaysound.it/programmi/racconticriminali-343giorniallinfernosequestrobarbarapiattelli"
         ]
         for el in list:
             parser = RaiParser(el, self._base_path)
