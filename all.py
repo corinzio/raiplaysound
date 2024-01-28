@@ -54,7 +54,6 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/radio3mondo",
                  "https://www.raiplaysound.it/programmi/16ottobre1943",                
                  "https://www.raiplaysound.it/programmi/belve",
-                 "https://www.raiplaysound.it/programmi/voxinbestia",
                  "https://www.raiplaysound.it/programmi/winelovers",
                  "https://www.raiplaysound.it/programmi/leggendetrentine",
                  "https://www.raiplaysound.it/programmi/vajont1963londa",
