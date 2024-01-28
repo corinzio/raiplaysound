@@ -58,7 +58,10 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/leggendetrentine",
                  "https://www.raiplaysound.it/programmi/vajont1963londa",
                  "https://www.raiplaysound.it/playlist/pontidinote",
-                 "https://www.raiplaysound.it/programmi/racconticriminali-343giorniallinfernosequestrobarbarapiattelli"
+                 "https://www.raiplaysound.it/programmi/racconticriminali-343giorniallinfernosequestrobarbarapiattelli",
+                 "https://www.raiplaysound.it/programmi/america7",
+                 "https://www.raiplaysound.it/programmi/seipezzifacili",
+                 "https://www.raiplaysound.it/programmi/cronachecriminali"
         ]
         for el in list:
             parser = RaiParser(el, self._base_path)
