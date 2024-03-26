@@ -61,6 +61,8 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/racconticriminali-343giorniallinfernosequestrobarbarapiattelli",
                  "https://www.raiplaysound.it/programmi/america7",
                  "https://www.raiplaysound.it/programmi/seipezzifacili",
+                 "https://www.raiplaysound.it/programmi/diariolatinounviaggiolungolarutapanamericana",
+                 "https://www.raiplaysound.it/programmi/iomedicoemafiosolaconfessione",
                  "https://www.raiplaysound.it/programmi/cronachecriminali"
         ]
         for el in list:
