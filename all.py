@@ -63,7 +63,8 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/seipezzifacili",
                  "https://www.raiplaysound.it/programmi/diariolatinounviaggiolungolarutapanamericana",
                  "https://www.raiplaysound.it/programmi/iomedicoemafiosolaconfessione",
-                 "https://www.raiplaysound.it/programmi/cronachecriminali"
+                 "https://www.raiplaysound.it/programmi/cronachecriminali",
+                 "https://www.raiplaysound.it/playlist/socrate"
         ]
         for el in list:
             parser = RaiParser(el, self._base_path)
