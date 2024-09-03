@@ -66,6 +66,7 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/cronachecriminali",
                  "https://www.raiplaysound.it/playlist/socrate",
                  "https://www.raiplaysound.it/programmi/ilpaesedeipazzi",
+                 "https://www.raiplaysound.it/programmi/insider-facciaafacciaconilcrimine",
                  "https://www.raiplaysound.it/programmi/abissidiariodaifondalidelpacifico"
         ]
         for el in list:
