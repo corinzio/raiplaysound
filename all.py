@@ -53,8 +53,10 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/oltre-uninchiestasulluniversoincelitaliano",
                  "https://www.raiplaysound.it/programmi/ungiornodapecora",
                  "https://www.raiplaysound.it/programmi/radio3mondo",
+                 "https://www.raiplaysound.it/programmi/belve",
                  "https://www.raiplaysound.it/programmi/primapagina"
         ]
+        list.sort()
         for el in list:
             parser = RaiParser(el, self._base_path)
             try:
