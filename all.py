@@ -48,13 +48,11 @@ class RaiPlaySound:
     def parse_list(self) -> None:
         feeds = []
         list = [ 
-                 "https://www.raiplaysound.it/programmi/racconticriminali-343giorniallinfernosequestrobarbarapiattelli",
                  "https://www.raiplaysound.it/programmi/milanocrime",
                  "https://www.raiplaysound.it/programmi/revolution",
                  "https://www.raiplaysound.it/programmi/oltre-uninchiestasulluniversoincelitaliano",
                  "https://www.raiplaysound.it/programmi/ungiornodapecora",
-                 "https://www.raiplaysound.it/programmi/mappamondi",
-                 "https://www.raiplaysound.it/programmi/america7",
+                 "https://www.raiplaysound.it/programmi/radio3mondo",
                  "https://www.raiplaysound.it/programmi/primapagina"
         ]
         for el in list:
