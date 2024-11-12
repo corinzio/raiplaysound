@@ -35,10 +35,14 @@ def _datetime_parser(s: str) -> dt | None:
 
 
 class RaiParser:
-    def __init__(self, url: str, folderPath: str) -> None:
+    def __init__(self, url: str, folderPath: str, days_window_programmi: float = 90) -> None:
         self.url = url
         self.folderPath = folderPath
         self.inner: list[Feed] = []
+        self.treshold_date = dt.now() 
+        self.treshold_date = self.treshold_date - timedelta( days = days_window_programmi )
+        self.date_filter = False
+        self.size_limit = days_window_programmi
 
     def extend(self, url: str) -> None:
         url = urljoin(self.url, url)
@@ -126,6 +130,11 @@ class RaiParser:
         if skip_film and (typology in ("film", "fiction")):
             print(f"Skipped film: {self.url} ({typology})")
             return []
+        if not skip_programmi and (typology in ("programmi radio", "informazione notiziari")):
+            #set filter date
+            self.date_filter = True
+        else:
+            self.date_filter = False        
         for tab in rdata["tab_menu"]:
             if tab["content_type"] == "playlist":
                 self.extend(tab["weblink"])
