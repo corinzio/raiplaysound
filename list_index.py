@@ -12,6 +12,7 @@ class Nodo:
         self.descrizione = descrizione
         self.link = url_to_filename(link)
         self.img = img
+        self.raiurl = link
 
 def render_index( lista: list[Nodo], path: str ):
     env = Environment(loader = FileSystemLoader('tmpl'))
