@@ -4,10 +4,11 @@
 name: Python application
 
 on:
+  workflow_dispatch
   schedule:
     -  cron: '30 7 * * *'
   push:
-    branches: "change"
+    branches: "master"
 permissions:
   contents: read
 
