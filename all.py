@@ -5,6 +5,8 @@ import requests
 from bs4 import BeautifulSoup
 
 from single import RaiParser
+from list_index import Nodo
+from list_index import render_index
 
 GENERI_URL = "https://www.raiplaysound.it/generi"
 
@@ -44,6 +46,7 @@ class RaiPlaySound:
             self.parse_genere(genere)
 
     def parse_list(self) -> None:
+        feeds = []
         list = [ 
                  "https://www.raiplaysound.it/programmi/racconticriminali-343giorniallinfernosequestrobarbarapiattelli",
                  "https://www.raiplaysound.it/programmi/milanocrime",
@@ -57,9 +60,13 @@ class RaiPlaySound:
         for el in list:
             parser = RaiParser(el, self._base_path)
             try:
-                parser.process(skip_programmi=False, date_ok=False)
+               out = parser.process(skip_programmi=False, date_ok=False)[0]
+               feeds.append(Nodo(out.title, out.description, out.url, out._data['image']['url']))
             except Exception as e:
-                print(f"Error with {el}: {e}")       
+                print(f"Error with {el}: {e}")
+        print("end")
+        render_index(feeds,self._base_path)
+              
 
 def main():
     dumper = RaiPlaySound()

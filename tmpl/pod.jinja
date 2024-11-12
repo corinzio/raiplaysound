@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lista Podcast</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+<body>
+  <section class="section is-medium">
+    <div class="container is-max-desktop">
+      {% for el in lista -%}
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-128x128">
+                <img src="{{ el.img }}"
+                  alt="{{ el.titolo }}" />
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4">{{ el.titolo }}</p>
+              <p class="title is-6"><a href="{{ el.link }}">feed</a>
+            </div>
+          </div>
+          <div class="content">
+            {{ el.descrizione }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</body>
+
+</html>
