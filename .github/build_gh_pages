@@ -3,12 +3,7 @@
 
 name: Python application
 
-on:
-  workflow_dispatch
-  schedule:
-    -  cron: '30 7 * * *'
-  push:
-    branches: "master"
+on: workflow_dispatch
 permissions:
   contents: read
 
