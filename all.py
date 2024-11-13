@@ -62,7 +62,7 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/primapagina",
                  "https://www.raiplaysound.it/playlist/fiabeeraccontichefannopaura"
         ]
-        #list.sort()
+        list.sort()
         for el in list:
             parser = RaiParser(el, self._base_path)
             try:

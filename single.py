@@ -72,6 +72,7 @@ class RaiParser:
             fitem.update = dupdate
             fitem.url = urljoin(self.url, item["track_info"]["page_url"])
             fitem.content = item.get("description", item["title"])
+            fitem.content = fitem.content + " " + urljoin(self.url, item["image"]).replace("http:", "https:")
             fitem._data = {
                 "enclosure": {
                     "@type": "audio/mpeg",
@@ -135,6 +136,7 @@ class RaiParser:
             fitem.update = dupdate
             fitem.url = urljoin(self.url, item["track_info"]["page_url"])
             fitem.content = item.get("description", item["title"])
+            fitem.content = fitem.content + " " + urljoin(self.url, item["image"]).replace("http:", "https:")
             fitem._data = {
                 "enclosure": {
                     "@type": "audio/mpeg",
@@ -143,7 +145,7 @@ class RaiParser:
                 f"{NSITUNES}title": fitem.title,
                 f"{NSITUNES}summary": fitem.content,
                 f"{NSITUNES}duration": item["audio"]["duration"],
-                "image": {"url": urljoin(self.url, item["image"])},
+                "image": {"url": urljoin(self.url, item["image"]).replace("http:", "https:")},
             }
             if item.get("downloadable_audio", None) and item["downloadable_audio"].get("url", None):
                 fitem._data["enclosure"]["@url"] = urljoin(
