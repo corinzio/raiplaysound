@@ -48,6 +48,7 @@ class RaiPlaySound:
     def parse_list(self) -> None:
         feeds = []
         list = [ 
+                 "https://www.raiplaysound.it/programmi/zoomscattidalweb",
                  "https://www.raiplaysound.it/programmi/milanocrime",
                  "https://www.raiplaysound.it/programmi/revolution",
                  "https://www.raiplaysound.it/programmi/oltre-uninchiestasulluniversoincelitaliano",
@@ -56,13 +57,12 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/belve",
                  "https://www.raiplaysound.it/programmi/america7",
                  "https://www.raiplaysound.it/programmi/mappamondi",
-                 "https://www.raiplaysound.it/programmi/zoomscattidalweb",
                  "https://www.raiplaysound.it/programmi/checkpointcharlielacadutadelmuro",
                  "https://www.raiplaysound.it/programmi/insider-facciaafacciaconilcrimine",
                  "https://www.raiplaysound.it/programmi/primapagina",
                  "https://www.raiplaysound.it/playlist/fiabeeraccontichefannopaura"
         ]
-        list.sort()
+        #list.sort()
         for el in list:
             parser = RaiParser(el, self._base_path)
             try:
@@ -70,7 +70,6 @@ class RaiPlaySound:
                feeds.append(Nodo(out.title, out.description, out.url, out._data['image']['url']))
             except Exception as e:
                 print(f"Error with {el}: {e}")
-        print("end")
         render_index(feeds,self._base_path)
               
 

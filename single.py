@@ -35,14 +35,12 @@ def _datetime_parser(s: str) -> dt | None:
 
 
 class RaiParser:
-    def __init__(self, url: str, folderPath: str, days_window_programmi: float = 90) -> None:
+    def __init__(self, url: str, folderPath: str, count_limit: float = 500) -> None:
         self.url = url
         self.folderPath = folderPath
         self.inner: list[Feed] = []
-        self.treshold_date = dt.now() 
-        self.treshold_date = self.treshold_date - timedelta( days = days_window_programmi )
         self.date_filter = False
-        self.size_limit = days_window_programmi
+        self.size_limit = count_limit
 
     def extend(self, url: str) -> None:
         url = urljoin(self.url, url)
@@ -52,6 +50,49 @@ class RaiParser:
             return
         parser = RaiParser(url, self.folderPath)
         self.inner.extend(parser.process())
+
+    def _get_items_of( self, url : str, items: list ) -> None:
+        result = requests.get("https://www.raiplaysound.it/" + url)
+        try:
+            result.raise_for_status()
+        except requests.HTTPError as e:
+            print(f"Error with {self.url}: {e}")
+            return self.inner
+        content = result.json()
+        for item in content["cards"]:
+            fitem = FeedItem()
+            fitem.title = item["toptitle"]
+            fitem.id = "timendum-raiplaysound-" + item["uniquename"]
+            if any( d.id == fitem.id for d in items ):
+                print("duplicate entry id skipped {fitem.id}")
+                continue
+            # Keep original ordering by tweaking update seconds
+            # Fix time in case of bad ordering
+            dupdate = _datetime_parser(item["create_date"] + " " + item["create_time"])
+            fitem.update = dupdate
+            fitem.url = urljoin(self.url, item["track_info"]["page_url"])
+            fitem.content = item.get("description", item["title"])
+            fitem._data = {
+                "enclosure": {
+                    "@type": "audio/mpeg",
+                    "@url": urljoin(self.url, item["audio"]["url"]),
+                },
+                f"{NSITUNES}title": fitem.title,
+                f"{NSITUNES}summary": fitem.content,
+                f"{NSITUNES}duration": item["audio"]["duration"],
+                "image": {"url": urljoin(self.url, item["image"])},
+            }
+            if item.get("downloadable_audio", None) and item["downloadable_audio"].get("url", None):
+                fitem._data["enclosure"]["@url"] = urljoin(
+                    self.url, item["downloadable_audio"]["url"]
+                ).replace("http:", "https:")
+            if item.get("season", None) and item.get("episode", None):
+                fitem._data[f"{NSITUNES}season"] = item["season"]
+                fitem._data[f"{NSITUNES}episode"] = item["episode"]
+            items.append(fitem)
+            if len(items) >= self.size_limit:
+                print("size limit") 
+                return              
 
     def _json_to_feed(self, feed: Feed, rdata) -> None:
         feed.title = rdata["title"]
@@ -112,6 +153,12 @@ class RaiParser:
                 fitem._data[f"{NSITUNES}season"] = item["season"]
                 fitem._data[f"{NSITUNES}episode"] = item["episode"]
             feed.items.append(fitem)
+            if len(feed.items)  >= self.size_limit:
+                print("Size Limit")
+                return
+        if "filters" in rdata:
+            for flt in rdata["filters"]:
+                self._get_items_of( flt["path_id"], feed.items )
 
     def process(
         self, skip_programmi=True, skip_film=True, date_ok=False, reverse=False
