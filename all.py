@@ -54,7 +54,13 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/ungiornodapecora",
                  "https://www.raiplaysound.it/programmi/radio3mondo",
                  "https://www.raiplaysound.it/programmi/belve",
-                 "https://www.raiplaysound.it/programmi/primapagina"
+                 "https://www.raiplaysound.it/programmi/america7",
+                 "https://www.raiplaysound.it/programmi/mappamondi",
+                 "https://www.raiplaysound.it/programmi/zoomscattidalweb",
+                 "https://www.raiplaysound.it/programmi/checkpointcharlielacadutadelmuro",
+                 "https://www.raiplaysound.it/programmi/insider-facciaafacciaconilcrimine",
+                 "https://www.raiplaysound.it/programmi/primapagina",
+                 "https://www.raiplaysound.it/playlist/fiabeeraccontichefannopaura"
         ]
         list.sort()
         for el in list:
