@@ -60,7 +60,8 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/checkpointcharlielacadutadelmuro",
                  "https://www.raiplaysound.it/programmi/insider-facciaafacciaconilcrimine",
                  "https://www.raiplaysound.it/programmi/primapagina",
-                 "https://www.raiplaysound.it/playlist/fiabeeraccontichefannopaura"
+                 "https://www.raiplaysound.it/playlist/fiabeeraccontichefannopaura",
+                 "https://www.raiplaysound.it/programmi/numberstations-leradiodellespie"
         ]
         list.sort()
         for el in list:
