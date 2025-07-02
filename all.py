@@ -52,7 +52,7 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/milanocrime",
                  "https://www.raiplaysound.it/programmi/revolution",
                  "https://www.raiplaysound.it/programmi/oltre-uninchiestasulluniversoincelitaliano",
-                 "https://www.raiplaysound.it/programmi/ungiornodapecora",
+                 "https://www.raiplaysound.it/playlist/tributattoo-lestoriedietroitatuaggia",
                  "https://www.raiplaysound.it/programmi/radio3mondo",
                  "https://www.raiplaysound.it/programmi/belve",
                  "https://www.raiplaysound.it/programmi/america7",
