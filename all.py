@@ -62,7 +62,9 @@ class RaiPlaySound:
                  "https://www.raiplaysound.it/programmi/insider-facciaafacciaconilcrimine",
                  "https://www.raiplaysound.it/programmi/primapagina",
                  "https://www.raiplaysound.it/playlist/fiabeeraccontichefannopaura",
-                 "https://www.raiplaysound.it/playlist/josephconradnavigarenelprofondo"
+                 "https://www.raiplaysound.it/playlist/josephconradnavigarenelprofondo",
+                 "https://www.raiplaysound.it/programmi/5incondotta",
+                 "https://www.raiplaysound.it/programmi/chicagoblues"
         ]
         list.sort()
         for el in list:
